@@ -1,5 +1,6 @@
 class FooBar
   def check_number(number)
+    number = number.to_i if number.instance_of?(String)
     return unless valid_argument?(number)
     result = "#{number}: "
     result << "foo" if number % 3 == 0
@@ -10,8 +11,13 @@ class FooBar
   private
 
   def valid_argument?(number)
-    p "Only numbers between 1 and 100 are allowed/ to match"
-    number >= 1 && number <= 100
+    # puts "number: #{number}"
+    if number.instance_of?(Fixnum) && number >= 1 && number <= 100
+      return true
+    else
+      p "Only numbers between 1 and 100 are allowed"
+      return false
+    end
   end
 end
 
@@ -45,9 +51,19 @@ describe "#check_number" do
     assert_output(/15: foobar/){ @foobar.check_number(15) }
   end
 
-  it "returns and error message if the arguments are out of bound numbers" do
+  it "returns an error message if the arguments are out of bound numbers" do
     assert_output(/Only numbers between 1 and 100 are allowed/){@foobar.check_number(0)}
     assert_output(/Only numbers between 1 and 100 are allowed/){@foobar.check_number(200)}
     assert_output(/Only numbers between 1 and 100 are allowed/){@foobar.check_number(-20)}
+  end
+
+  it "parses strings which are integers between 1 and 100" do
+    assert_output(/15: foobar/){@foobar.check_number("15")}
+  end
+
+  it "returns an error message for non integers" do
+    assert_output(/Only numbers between 1 and 100 are allowed/){@foobar.check_number([1])}
+    assert_output(/Only numbers between 1 and 100 are allowed/){@foobar.check_number({test: 1})}
+    assert_output(/Only numbers between 1 and 100 are allowed/){@foobar.check_number("Hello")}
   end
 end
