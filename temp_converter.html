@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Welcome to the Temperature converter</h1>
+    <h2>Enter a number in either Fahrenheit or Celsius and we'll convert.</h2>
+
+    <h3>Fahrenheit:</h3>
+    <input id="fahrenheit" type="number" step="any" />
+
+
+    <h3>Celsius:</h3>
+    <input id="celsius" type="number" step="any" />
+
+    </div>
+
+
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        console.log( "ready!" );
+
+        function fahrenheitToCelsius(fahrenheit){
+          console.log("Fah: " + fahrenheit)
+          console.log(parseInt(fahrenheit) + 15)
+          return parseInt(fahrenheit) - 32 * (5/9)
+        }
+
+        $( "#fahrenheit" ).keyup(function() {
+          var fahrenheit = $("#fahrenheit").val();
+          console.log("fahrenheit is :" + fahrenheit)
+          var celsius = fahrenheitToCelsius(fahrenheit);
+
+          $("#celsius").val(celsius)
+          console.log( "Handler for .keyup() called." );
+        });
+
+
+      });
+    </script>
+
+  </body>
+</html>
