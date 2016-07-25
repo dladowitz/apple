@@ -1,45 +1,96 @@
 <!DOCTYPE html>
 <html>
   <head>
+		<!-- GOOGLE FONTS -->
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+		<!-- LIBRARIES CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<!-- SPECIFIC CSS -->
+		<link rel="stylesheet" href="css/style.css">
+
+    <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   </head>
 
   <body>
-    <h1>Welcome to the Temperature converter</h1>
-    <h2>Enter a number in either Fahrenheit or Celsius and we'll convert.</h2>
+    <div id="document" class="document">
 
-    <h3>Fahrenheit:</h3>
-    <input id="fahrenheit" type="number" step="any" />
+      <!-- HEADER
+      ================================= -->
+      <section id="hero" class="hero-section hero-layout-simple hero-fullscreen section section-dark">
 
+        <div class="section-background">
 
-    <h3>Celsius:</h3>
-    <input id="celsius" type="number" step="any" />
+          <!-- IMAGE BACKGROUND -->
+          <div class="section-background-image parallax" data-stellar-ratio="0.4">
+            <img src="images/sunrise.jpg" alt="" >
+          </div>
 
+        </div>
+
+        <div class="container">
+
+          <div class="hero-content">
+            <div class="hero-content-inner">
+
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+
+                  <div class="hero-heading text-center" data-animation="fadeIn">
+
+                    <h1 class="hero-title">Temperature Converter</h1>
+                    <h2>Enter a number in either Fahrenheit or Celsius and we'll convert.</h2>
+
+                    <h3>Fahrenheit:</h3>
+                    <input class="temp-boxes" id="fahrenheit" type="number" step="any" />
+
+                    <h3>Celsius:</h3>
+                    <input class="temp-boxes" id="celsius" type="number" step="any" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-
 
     <script type="text/javascript">
       $( document ).ready(function() {
         console.log( "ready!" );
 
         function fahrenheitToCelsius(fahrenheit){
-          console.log("Fah: " + fahrenheit)
-          console.log(parseInt(fahrenheit) + 15)
-          return parseInt(fahrenheit) - 32 * (5/9)
+          var celsius = (parseInt(fahrenheit) - 32) * (5/9)
+          return Number((celsius).toFixed(1))
+        }
+
+        function celsiusToFahrenheit(celsius){
+          var fahrenheit = ( ( parseInt(celsius) * (9/5) ) + 32)
+          return Number((fahrenheit).toFixed(1))
         }
 
         $( "#fahrenheit" ).keyup(function() {
           var fahrenheit = $("#fahrenheit").val();
-          console.log("fahrenheit is :" + fahrenheit)
-          var celsius = fahrenheitToCelsius(fahrenheit);
 
-          $("#celsius").val(celsius)
-          console.log( "Handler for .keyup() called." );
+          if(fahrenheit){
+            var celsius = fahrenheitToCelsius(fahrenheit);
+            $("#celsius").val(celsius)
+          }
         });
 
+        $( "#celsius" ).keyup(function() {
+          var celsius = $("#celsius").val();
 
+          if(celsius){
+            var fahrenheit = celsiusToFahrenheit(celsius);
+            $("#fahrenheit").val(fahrenheit)
+          }
+        });
       });
-    </script>
 
+    </script>
   </body>
 </html>
